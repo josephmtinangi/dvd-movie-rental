@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Movie DVD Rentals Home</h1>
+  <p>
+    Welcome to Movie DVD Rentals, a website developed by
+    <em>Joseph Peter Mtinangi</em>!
+  </p>
+  <h2>Dynamic content</h2>
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Movies:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Directors:</strong> {{ num_authors }}</li>
+  </ul>
+{% endblock %}
