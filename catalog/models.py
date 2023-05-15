@@ -19,6 +19,7 @@ class Language(models.Model):
 
 class Movie(models.Model):
 	title = models.CharField(max_length=200)
+	year = models.IntegerField(help_text='Enter the year movie was released')
 	director = models.ForeignKey('Director', on_delete=models.SET_NULL, null=True)
 	summary = models.TextField(max_length=1000, help_text='Enter a brief description of the movie')
 	genre = models.ManyToManyField(Genre, help_text='Select a genre for this movie')
