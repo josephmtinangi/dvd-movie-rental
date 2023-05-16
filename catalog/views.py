@@ -24,6 +24,7 @@ def index(request):
 
 class MovieListView(generic.ListView):
 	model = Movie
+	paginate_by = 2
 
 
 class MovieDetailView(generic.DetailView):
