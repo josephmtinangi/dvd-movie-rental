@@ -22,8 +22,9 @@
           {% block sidebar %}
             <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Home</a></li>
-              <li><a href="">All movies</a></li>
+              <li><a href="{% url 'movies' %}">All movies</a></li>
               <li><a href="">All genres</a></li>
+              <li><a href="">About</a></li>
             </ul>
           {% endblock %}
         </div>

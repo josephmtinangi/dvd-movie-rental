@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Movie, Director, Rental, Genre, Language
+from django.views import generic
 
 # Create your views here.
 def index(request):
@@ -19,3 +20,12 @@ def index(request):
 	}
 
 	return render(request, 'index.html', context=context)
+
+
+class MovieListView(generic.ListView):
+	model = Movie
+
+
+class MovieDetailView(generic.DetailView):
+	model = Movie
+

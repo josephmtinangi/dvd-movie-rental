@@ -29,7 +29,7 @@ class Movie(models.Model):
 		return self.title
 
 	def get_absolute_url(self):
-		return reverse('book-detail', args=[str(self.id)])
+		return reverse('movie-detail', args=[str(self.id)])
 
 
 class Rental(models.Model):
@@ -57,7 +57,7 @@ class Rental(models.Model):
 		ordering = ['due_back']
 
 	def __str__(self):
-		return f'{self.id} ({self.book.title})'
+		return f'{self.id} ({self.movie.title})'
 
 
 class Director(models.Model):
