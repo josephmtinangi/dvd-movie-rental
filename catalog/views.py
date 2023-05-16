@@ -12,11 +12,15 @@ def index(request):
 
 	num_directors = Director.objects.count()
 
+	num_visits = request.session.get('num_visits', 0)
+	request.session['num_visits'] = num_visits + 1
+
 	context = {
 		'num_movies': num_movies,
 		'num_rentals': num_rentals,
 		'num_rentals_available': num_rentals_available,
-		'num_directors': num_directors
+		'num_directors': num_directors,
+		'num_visits': num_visits,
 	}
 
 	return render(request, 'index.html', context=context)
