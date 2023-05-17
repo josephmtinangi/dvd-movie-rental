@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 import uuid
+from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 class Genre(models.Model):
@@ -37,6 +39,7 @@ class Rental(models.Model):
 	movie = models.ForeignKey('Movie', on_delete=models.RESTRICT, null=True)
 	imprint = models.CharField(max_length=200)
 	due_back = models.DateField(null=True, blank=True)
+	borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
 	LOAN_STATUS = (
 		('m', 'Maintenance'),
@@ -52,6 +55,10 @@ class Rental(models.Model):
 		default='m',
 		help_text='Movie availability',
 	)
+
+	@property
+	def is_overdue(self):
+		return bool(self.due_back and date.today() > self.due_back)
 
 	class Meta:
 		ordering = ['due_back']
