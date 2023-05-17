@@ -264,3 +264,10 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
+
+# Text backup files
+*.bak
+
+# Database
+*.sqlite3
+
