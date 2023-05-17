@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Movie, Director, Rental, Genre, Language
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def index(request):
@@ -34,3 +35,15 @@ class MovieListView(generic.ListView):
 class MovieDetailView(generic.DetailView):
 	model = Movie
 
+
+class RentedMoviesByUserListView(LoginRequiredMixin, generic.ListView):
+	model = Rental
+	template_name = 'catalog/rental_list_user.html'
+	paginate_by = 10
+
+	def get_queryset(self):
+		return (
+			Rental.objects.filter(borrower=self.request.user)
+			 .filter(status__exact='o')
+			 .order_by('due_back')
+		)
