@@ -1,3 +1,12 @@
+import datetime
+
+from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from catalog.forms import RenewMovieForm
+
 from django.shortcuts import render
 from .models import Movie, Director, Rental, Genre, Language
 from django.views import generic
@@ -49,3 +58,30 @@ class RentedMoviesByUserListView(LoginRequiredMixin, generic.ListView):
 			 .filter(status__exact='o')
 			 .order_by('due_back')
 		)
+
+
+@login_required
+@permission_required('catalog.can_mark_returned', raised_exception=True)
+def renew_movie_staff(request, pk):
+	rental = get_object_or_404(Rental, pk=pk)
+
+	if request.method == 'POST':
+		form = RenewMovieForm(request.POST)
+
+		if form.is_valid():
+
+			rental.due_back = form.cleaned_data['renewal_date']
+			rental.save()
+
+			return HttpResponseRedirect(reverse('all-borrowed'))
+
+	else:
+		proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+		form = RenewMovieForm(initial={'renewal_date': proposed_renewal_date})
+
+	context = {
+		'form': form,
+		'rental': rental,
+	}
+
+	return render(request, 'catalog/movie_renew_staff.html', context)
