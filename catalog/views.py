@@ -40,7 +40,7 @@ def about(request):
 
 class MovieListView(generic.ListView):
 	model = Movie
-	paginate_by = 10
+	paginate_by = 12
 
 
 class MovieDetailView(generic.DetailView):
@@ -50,7 +50,7 @@ class MovieDetailView(generic.DetailView):
 class RentedMoviesByUserListView(LoginRequiredMixin, generic.ListView):
 	model = Rental
 	template_name = 'catalog/rental_list_user.html'
-	paginate_by = 10
+	paginate_by = 12
 
 	def get_queryset(self):
 		return (
@@ -62,7 +62,7 @@ class RentedMoviesByUserListView(LoginRequiredMixin, generic.ListView):
 class RentedMoviesListView(LoginRequiredMixin, generic.ListView):
 	model = Rental
 	template_name = 'catalog/rental_list.html'
-	paginate_by = 10
+	paginate_by = 12
 
 	def get_queryset(self):
 		return (
