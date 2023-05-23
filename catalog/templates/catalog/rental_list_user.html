@@ -1,18 +1,37 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-	<h1>Rented Movies</h1>
+	<h1>My Rented Movies</h1>
 
 	{% if rental_list %}
-		<ul>
-			{% for rental in rental_list %}
-				<li class="{% if rental.is_overdue %}text-danger{% endif %}">
-					<a href="{% url 'movie-detail' rental.movie.id %}">{{ rental.movie.title }}</a>
-					&middot;
-					{{ rental.due_date }}
-				</li>
-			{% endfor %}
-		</ul>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Year</th>
+					<th>Language</th>
+					<th>Status</th>
+					<th>Due Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for rental in rental_list %}
+					<tr>
+						<td><a href="{% url 'movie-detail' rental.movie.id %}">{{ rental.movie.title }}</a></td>
+						<td>{{ rental.movie.year }}</td>
+						<td>{{ rental.movie.language }}</td>
+						<td>
+							{% if rental.is_overdue %}
+								<span class="badge rounded-pill bg-danger">Overdue</span> 
+							{% else %}
+								<span class="badge rounded-pill bg-success">Active</span>
+							{% endif %}
+						</td>
+						<td>{{ rental.due_back }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	{% else %}
 		<p>There are no movies rented.</p>
 	{% endif %}

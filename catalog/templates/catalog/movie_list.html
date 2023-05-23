@@ -3,14 +3,39 @@
 {% block content %}
 	<h1>Movie List</h1>
 	{% if movie_list %}
-		<ul>
+
+		<div class="row">
 			{% for movie in movie_list %}
-				<li>
-					<a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a>
-					({{ movie.director }})
-				</li>
+					{% if forloop.counter|divisibleby:4 %}
+					<div class="col-3">
+						<div class="card shadow-lg" style="width: 18rem;">
+						  <div class="card-body">
+						    <h5 class="card-title">{{ movie.title }}</h5>
+						    <h6 class="card-subtitle mb-2 text-muted">{{ movie.year }} &middot; {{ movie.language }}</h6>
+						    <p class="card-text text-truncate">{{ movie.summary }}</p>
+						    <a href="{{ movie.get_absolute_url }}" class="card-link">More</a>
+						  </div>
+						</div>
+					</div>	
+					</div>
+					{% if not forloop.last %}
+					<br>
+				    <div class="row">
+				    {% endif %}
+				    {% else %}
+					<div class="col-3">
+						<div class="card shadow-lg" style="width: 18rem;">
+						  <div class="card-body">
+						    <h5 class="card-title">{{ movie.title }}</h5>
+						    <h6 class="card-subtitle mb-2 text-muted">{{ movie.year }} &middot; {{ movie.language }}</h6>
+						    <p class="card-text text-truncate">{{ movie.summary }}</p>
+						    <a href="{{ movie.get_absolute_url }}" class="card-link">More</a>
+						  </div>
+						</div>
+					</div>
+				    {% endif %}							
 			{% endfor %}
-		</ul>
+		</div>
 	{% else %}
 		<p>
 			There are no movies in the library.

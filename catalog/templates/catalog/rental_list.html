@@ -3,12 +3,58 @@
 {% block content %}
 	<h1>All Rented</h1>
 
-	{% if rental_list %}
-		<ul>
+	{% if rental_list %}	
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Year</th>
+					<th>Status</th>
+					<th>Borrower</th>
+					<th>Due Date</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
 			{% for rental in rental_list %}
-				<li class="{% if rental.is_overdue %}text-danger{% endif %}"><a href="{% url 'movie-detail' rental.movie.id %}">{{ rental.movie.title }}</a></li>
-			{% endfor %}
-		</ul>	
+				<tr>
+					<td><a href="{% url 'movie-detail' rental.movie.id %}">{{ rental.movie.title }}</a></td>
+					<td>{{ rental.movie.year }}</td>
+					<td>
+						{% if rental.status == 'o' %}
+							{% if rental.is_overdue %}
+								<span class="badge rounded-pill bg-danger">Overdue</span>
+							{% else %}
+								<span class="badge rounded-pill bg-dark">On Loan</span>
+							{% endif %}
+						{% endif %}
+						{% if rental.status == 'r' %}
+							<span class="badge rounded-pill bg-warning">Reserved</span>
+						{% endif %}
+						{% if rental.status == 'a' %}
+							<span class="badge rounded-pill bg-success">Available</span>
+						{% endif %}
+						{% if rental.status == 'm' %}
+							<span class="badge rounded-pill bg-danger">Maintenance</span>
+						{% endif %}
+					</td>
+					<td>{{ rental.borrower.username }}</td>
+					<td>{{ rental.due_back }}</td>
+					<td><a href="{% url 'renew-movie-staff' rental.id %}">Renew</a></td>
+				</tr>
+			{% endfor %}				
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Title</th>
+					<th>Year</th>
+					<th>Status</th>
+					<th>Borrower</th>
+					<th>Due Date</th>
+					<th>Action</th>					
+				</tr>
+			</tfoot>
+		</table>
 	{% else %}
 		<p>There are no movies rented.</p>
 	{% endif %}

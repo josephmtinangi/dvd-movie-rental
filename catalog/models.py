@@ -43,7 +43,7 @@ class Rental(models.Model):
 
 	LOAN_STATUS = (
 		('m', 'Maintenance'),
-		('o', 'On loan'),
+		('o', 'On Loan'),
 		('a', 'Available'),
 		('r', 'Reserved'),
 	)
@@ -65,7 +65,7 @@ class Rental(models.Model):
 		permissions = (("can_mark_returned", "Set movie as returned"),)
 
 	def __str__(self):
-		return f'{self.id} ({self.movie.title})'
+		return f'{self.id} ({self.movie.title}), {self.due_back}'
 
 
 class Director(models.Model):

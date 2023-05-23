@@ -40,7 +40,7 @@ def about(request):
 
 class MovieListView(generic.ListView):
 	model = Movie
-	paginate_by = 2
+	paginate_by = 10
 
 
 class MovieDetailView(generic.DetailView):
@@ -64,6 +64,11 @@ class RentedMoviesListView(LoginRequiredMixin, generic.ListView):
 	template_name = 'catalog/rental_list.html'
 	paginate_by = 10
 
+	def get_queryset(self):
+		return (
+			Rental.objects.order_by('due_back')
+		)
+
 @login_required
 #@permission_required('catalog.can_mark_returned', raised_exception=True)
 def renew_movie_staff(request, pk):
@@ -77,7 +82,7 @@ def renew_movie_staff(request, pk):
 			rental.due_back = form.cleaned_data['renewal_date']
 			rental.save()
 
-			return HttpResponseRedirect(reverse('all-borrowed'))
+			return HttpResponseRedirect(reverse('all-rented'))
 
 	else:
 		proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
