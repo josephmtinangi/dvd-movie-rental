@@ -59,9 +59,13 @@ class RentedMoviesByUserListView(LoginRequiredMixin, generic.ListView):
 			 .order_by('due_back')
 		)
 
+class RentedMoviesListView(LoginRequiredMixin, generic.ListView):
+	model = Rental
+	template_name = 'catalog/rental_list.html'
+	paginate_by = 10
 
 @login_required
-@permission_required('catalog.can_mark_returned', raised_exception=True)
+#@permission_required('catalog.can_mark_returned', raised_exception=True)
 def renew_movie_staff(request, pk):
 	rental = get_object_or_404(Rental, pk=pk)
 

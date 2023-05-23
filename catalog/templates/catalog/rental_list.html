@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<h1>All Rented</h1>
+
+	{% if rental_list %}
+		<ul>
+			{% for rental in rental_list %}
+				<li class="{% if rental.is_overdue %}text-danger{% endif %}"><a href="{% url 'movie-detail' rental.movie.id %}">{{ rental.movie.title }}</a></li>
+			{% endfor %}
+		</ul>	
+	{% else %}
+		<p>There are no movies rented.</p>
+	{% endif %}
+{% endblock %}

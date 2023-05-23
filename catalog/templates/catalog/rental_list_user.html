@@ -8,6 +8,8 @@
 			{% for rental in rental_list %}
 				<li class="{% if rental.is_overdue %}text-danger{% endif %}">
 					<a href="{% url 'movie-detail' rental.movie.id %}">{{ rental.movie.title }}</a>
+					&middot;
+					{{ rental.due_date }}
 				</li>
 			{% endfor %}
 		</ul>
