@@ -7,8 +7,8 @@
 		<div class="row">
 			{% for movie in movie_list %}
 					{% if forloop.counter|divisibleby:4 %}
-					<div class="col-3">
-						<div class="card shadow-lg" style="width: 18rem;">
+					<div class="col-sm-3">
+						<div class="card shadow-lg">
 						  <div class="card-body">
 						    <h5 class="card-title">{{ movie.title }}</h5>
 						    <h6 class="card-subtitle mb-2 text-muted">{{ movie.year }} &middot; {{ movie.language }}</h6>
@@ -16,15 +16,15 @@
 						    <a href="{{ movie.get_absolute_url }}" class="card-link">More</a>
 						  </div>
 						</div>
-					</div>	
+					</div><br>	
 					</div>
 					{% if not forloop.last %}
 					<br>
 				    <div class="row">
 				    {% endif %}
 				    {% else %}
-					<div class="col-3">
-						<div class="card shadow-lg" style="width: 18rem;">
+					<div class="col-sm-3">
+						<div class="card shadow-lg">
 						  <div class="card-body">
 						    <h5 class="card-title">{{ movie.title }}</h5>
 						    <h6 class="card-subtitle mb-2 text-muted">{{ movie.year }} &middot; {{ movie.language }}</h6>
@@ -32,7 +32,7 @@
 						    <a href="{{ movie.get_absolute_url }}" class="card-link">More</a>
 						  </div>
 						</div>
-					</div>
+					</div><br>
 				    {% endif %}							
 			{% endfor %}
 		</div>
