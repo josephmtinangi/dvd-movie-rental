@@ -11,7 +11,7 @@
 						<div class="card shadow-lg">
 						  <div class="card-body">
 						    <h5 class="card-title">{{ movie.title }}</h5>
-						    <h6 class="card-subtitle mb-2 text-muted">{{ movie.year }} &middot; {{ movie.language }}</h6>
+						    <h6 class="card-subtitle mb-2 text-muted">{{ movie.year }} &middot; {{ movie.language }} &middot; {{ movie.display_genre }}</h6>
 						    <p class="card-text text-truncate">{{ movie.summary }}</p>
 						    <a href="{{ movie.get_absolute_url }}" class="card-link">More</a>
 						  </div>

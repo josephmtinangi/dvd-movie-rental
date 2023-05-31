@@ -33,6 +33,11 @@ class Movie(models.Model):
 	def get_absolute_url(self):
 		return reverse('movie-detail', args=[str(self.id)])
 
+	def display_genre(self):
+		return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+	display_genre.short_description = 'Genre'
+
 
 class Rental(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular movie')

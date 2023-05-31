@@ -3,10 +3,20 @@ from django.contrib import admin
 # Register your models here.
 from .models import Director, Genre, Language, Movie, Rental
 
-admin.site.register(Movie)
-admin.site.register(Director)
+#admin.site.register(Movie)
+#admin.site.register(Director)
 admin.site.register(Genre)
 admin.site.register(Language)
+
+class DirectorAdmin(admin.ModelAdmin):
+	list_display = ('last_name', 'first_name', 'date_of_birth')
+
+admin.site.register(Director, DirectorAdmin)
+
+@admin.register(Movie)
+class MovieAdmin(admin.ModelAdmin):
+	list_display = ('title', 'director', 'display_genre')
+
 
 @admin.register(Rental)
 class Rental(admin.ModelAdmin):
